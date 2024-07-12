@@ -1,0 +1,35 @@
+{
+  "name": "rewrite-proxy",
+  "version": "0.0.0",
+  "description": "rewrite proxy for json-server@https://github.com/typicode/json-server ",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts fixtures/routes.json",
+    "build": "rm -rf build && tsc",
+    "test": "node --import tsx/esm --test src/*.test.ts",
+    "lint": "eslint src --ext .ts --ignore-path .gitignore"
+  },
+  "filed": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.15"
+  },
+  "author": "Igor Novitskii",
+  "license": "ISC",
+  "dependencies": {
+    "@types/request": "^2.48.12",
+    "express": "^4.19.2",
+    "express-urlrewrite": "^2.0.2",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "@types/express": "^4.17.21",
+    "dotenv": "^16.4.5",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0"
+  }
+}
