@@ -12,18 +12,14 @@ const app: Express = express();
 
 for (const [key, options] of Object.entries(routes)) {
   if (options.rewrite) {
+    console.log(`[rewrite]: ${key}, ${options.rewrite}`)
     app.use(rewrite(key, options.rewrite));
   }
 }
 
 app.use(function(req: Request, res: Response) {
-  console.log(config['PROXY_URL'], "PROXY_URL", req.query)
-  req.pipe(request({
-    method: 'POST',
-    url: 'http://127.0.0.1:3000' + '/index',
-    json: true
-  }
-    )).pipe(res);
+  console.log(`[request]: ${config['PROXY_URL'] + req.url}`)
+  req.pipe(request(config['PROXY_URL'] + req.url)).pipe(res);
 })
 
 app.listen(config['PORT']);
