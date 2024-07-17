@@ -1,5 +1,4 @@
 import express, { Express, Request, Response } from 'express';
-import routes from '../fixtures/routes.json';
 import rewrite from 'express-urlrewrite';
 import request from 'request';
 
@@ -8,7 +7,13 @@ export type AppOptions = {
   target?: string
 }
 
-export function createApp(options: AppOptions = {}): Express 
+export type RouteOptions = {
+  rewrite: string
+}
+
+process.env['NO_PROXY'] = "*"
+
+export function createApp(options: AppOptions = {}, routes: Record<string, RouteOptions>): Express 
 {
   const app: Express = express();
 

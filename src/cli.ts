@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import { PackageJson } from 'type-fest'
 
 import { fileURLToPath } from 'node:url'
-import { createApp } from './server.js'
+import { createApp, RouteOptions } from './server.js'
 
 function help() {
   console.log(`Usage: json-server [options] <file>
@@ -31,7 +31,7 @@ function args(): {
         port: {
           type: 'string',
           short: 'p',
-          default: process.env['PORT'] ?? '3000',
+          default: process.env['PORT'] ?? '3001',
         },
         target: {
           type: 'string',
@@ -67,7 +67,7 @@ function args(): {
 
     // App args and options
     return {
-      file: positionals[0] ?? '',
+      file: positionals[0] ?? 'routes.json',
       port: parseInt(values.port as string),
       target: values.target as string,
     }
@@ -89,12 +89,19 @@ if (!existsSync(file)) {
   process.exit(1)
 }
 
-// Handle empty string JSON file
-if (readFileSync(file, 'utf-8').trim() === '') {
-  writeFileSync(file, '{}')
+let routes:Record<string, RouteOptions>;
+try {
+  const raw: string = readFileSync(file, 'utf-8');
+  if (raw == '') {
+    routes = {};
+    writeFileSync(file, '{}')
+  } else {
+    routes = JSON.parse(raw);
+  }
+} catch(err) {
+  throw new Error(err as string);
 }
 
-// todo: routes
-const app = createApp({ target });
+const app = createApp({ target }, routes)
 
-app.listen(port)
+app.listen(port);
