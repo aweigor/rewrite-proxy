@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts fixtures/routes.json",
+    "dev": "tsx watch src/cli.ts fixtures/routes.json",
     "build": "rm -rf build && tsc",
     "test": "node --import tsx/esm --test src/*.test.ts",
     "lint": "eslint src --ext .ts --ignore-path .gitignore"

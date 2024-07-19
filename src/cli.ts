@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import { PackageJson } from 'type-fest'
 
 import { fileURLToPath } from 'node:url'
-import { createApp, RouteOptions } from './server.js'
+import { createApp } from './server.js'
 
 function help() {
   console.log(`Usage: json-server [options] <file>
@@ -89,7 +89,7 @@ if (!existsSync(file)) {
   process.exit(1)
 }
 
-let routes:Record<string, RouteOptions>;
+let routes:Record<string, string>;
 try {
   const raw: string = readFileSync(file, 'utf-8');
   if (raw == '') {

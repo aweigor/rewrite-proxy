@@ -1,5 +1,5 @@
 {
-  "/api/*": {
-    "rewrite": "/$1"
-  }
+  "/api/*": "/$1",
+  "/:resource/:id/show": "/:resource/:id",
+  "/posts/:category": "/posts?category=:category"
 }
