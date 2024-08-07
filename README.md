@@ -1,5 +1,5 @@
 # rewrite-proxy
-rewrite proxy for typicode/json-server
+Rewrite proxy server
 
 usage:
 1. clone
